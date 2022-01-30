@@ -1,0 +1,1 @@
+document.write("[나는 from external js]<br><br>");

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            body{padding:0;margin:0;}
+            .header{background-color: rgb(208, 224, 115); border: 1px solid gray;}
+       
+            .navbar{display: flex; background-color: rgb(49, 32, 32); position:sticky;
+                        top:0;}
+            .navbar a {color: whitesmoke; cursor: default;
+                        
+            }
+                 /* sticky  */
+/* a 태그 언더바,   삭제하는 style 까먹음.  */
+            .main{display: flex;border: 3px solid black; }
+            
+            .aside{background-color: rgba(55, 201, 87, 0.459); border-right:2px dashed black; 
+                display:flex;
+                flex:24%;
+                flex-direction: column;
+                
+            }
+            .aside > div{flex: 22%;}
+            /* 1, 2  */
+            .main-content{ flex:76%;}
+            
+            .main-content div.title{
+                display:block;
+                min-height: 40px;
+                font-size:80px;
+                border: 1px double blue; ;
+                border-radius: 25px;    
+                margin: 5px 30px;            
+
+            }
+            .main-content div.content{
+                font-size:18px;
+                padding : 100px 0px;
+                border: 1px double darkcyan;
+                border-radius: 25px;
+                margin: 5px;
+            }
+            .footer{
+                display: flex;
+                justify-content: center;
+                background-color: brown;
+            }
+            @media screen and (max-width : 535px) {
+                .header{display:none;}
+                .main{flex-direction:column;}
+                .about{display:none;}
+            }
+
+        </style>
+    </head>
+    <body>
+        <div class="header">Who Am I </div>
+        <nav class="navbar">
+            <div style="flex:25%;"><a href=""> MENU1 </a></div>
+            <div style="flex:25%;"><a href=""> MENU2 </a></div>
+            <div style="flex:25%;"><a href=""> MENU3 </a></div>
+            <div style="flex:25%;"><a href=""> MENU4 </a></div>
+        </nav>
+        <div class="main">
+            <div class="aside">
+                <div class="about">
+                    ABOUT
+                </div>
+                <div>
+                    40분 걸려 만든 페이지.. 색감이 처참..
+                </div>
+                <div class="skills">
+                    SKILLS
+                </div>
+                <div class="blank">
+
+                </div>
+            </div>
+            <div class="main-content">
+                <div class="title">TITLE   1</div>
+                <div class="content">CONTENT 1</div>
+                <div class="title">TITLE   2</div>
+                <div class="content">CONTENT 2</div>
+                <div class="title">TITLE   3</div>
+                <div class="content">CONTENT 3</div>
+                <div class="title">TITLE   4</div>
+                <div class="content">CONTENT 4</div>
+            </div>
+
+        </div>
+        <div class="footer">
+            <span>FOOOOOOOOOOOOOOOOOOOTER</span>
+        </div>
+
+
+
+    </body>
+</html>

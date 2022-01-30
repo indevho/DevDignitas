@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            body{padding:0;margin:0;}
+        </style>
+    </head>
+    <body>
+
+
+        <script>
+            var x = "this is x : "
+            let y = "this is y : "
+            const z = "this is z : "
+            var it_is_snake =""; // user_name
+            var itIsCamelCase =""; // userName ...
+            var strIsHungarian =""; // iStudentNo , iRowNo ...
+            document.write( x + y + z +"</br>");
+            // z  바뀌는가? 
+            //z= "dd"; //Assignment to constant variable.
+            document.write( x + y + z );
+
+            console.log( ); //자바스크립트가 이미 갖고있는 내장 함수 
+
+            /*
+            var 만 쓰던 시절이 있었다. 
+
+            라고 말씀하시는 이유 .
+            다른 선언 키워드가 생겨났다
+
+            let , const 가 있는데 
+            
+            const 는  constant variable 로,  re-assign 할 수 없다. 
+
+
+            이미 선언했던 x 라도 ,,,,, 
+            자바스크립트는 이것을 에러를 안띄운다. 
+
+            
+
+
+            */
+            "use strict";
+            var v = "1";
+            var v ="2";
+            let v1 = "v1";
+            //let v1 =" v2";
+            //Identifier 'v' has already been declared
+            // let  -  할당은 얼마든지 ~ 선언은 한번만해~ 
+            const v2 =" 1 ";
+            //v2 = " 2 " ; // Assignment to constant variable.
+            // const > 재할당조차 못함. 이 페이지에서 이 변수는  상수처럼 써
+            // 단 주의할 것은 -  const 변수명은  [UPPERCASE][SNAKE 표기법 ]
+
+             und = undefined;
+            console.log("und : "+ und);
+            // undefined -- 야   내가 und 찾아가니까  메모리에 undefined 할당 되어있네? 이거 꺼내줄게
+
+        </script>
+    </body>
+</html>

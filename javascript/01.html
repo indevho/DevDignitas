@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            body{padding:0;margin:0;}
+        </style>
+        <script>
+
+            document.write("Hello World ( 1 ) "); //  1번째로 발동 
+            document.getElementById("dev").textContent= "hello"; // dev id 가진 요소 DOM에서 못찾기에 에러냄.
+            // Uncaught TypeError: Cannot set properties of null (setting 'textContent')
+            // at 01.html:14:55
+        </script>
+    </head>
+    <body>
+
+        <!-- <script src="js/js_location.js"></script> -->
+
+        <div id="dev">1</div></br>
+        
+        <script src="js/js_location.js" defer></script>
+
+        <script>
+            document.write("Hello World!");  // 2번재로 발동.  단 div 아래에 쓰여지게 된다.
+            //document.wirte("비정상코드");
+            document.getElementById("dev").textContent= "hello"; // 3번째로 발동한다. 
+        </script>
+    </body>
+</html>
+<!--  쌤은 무조건 body 안에 script 를 쓴다. hedaer 영역에 안 쓴다. 
+
+    script tag  뒤의 defer 속성 q붙이면.   externer 일때 작동한다. 
+
+    일단은 무조건 body 끝 직전에 script 들을 배치하도록 합시다. 그 습관을 가집시다. 
+
+
+    내가 오타난것에 대한 에러는 어떻게 볼까.  
+    VSCODE 에서는 못본다  ㅠㅠ 
+
+    그러나  브라우저 콘솔창에는 나온다.
+
+    개발자 도구 파헤치기 시간 .
+    NAVER 
+
+    렌더링 할때 순차적으로 해석이 된다. 
+    실제 앱 만들때는 수백수천줄.  
+    컴터 성능 아무리 좋아도. 
+    결국 브라우저는 일단 스크립트 해석을 하고 dom을 또 이어 찍어내게 된다.
+
+    사용자 경험을 챙기는 것이 일단 가장 주된 이유가 된다. script 를 body 꼬리에 쓰는 이유! 
+
+
+
+        Network  > fetch/ XHR 
+
+        XHR?? 
+
+        어떤 형식으로 파일을 받아오는 중이니 ?? 
+        JSON 형태로 되어있네... 
+
+        자원 리소스 이미지 js 다 추적 가능하고
+
+        서버에는 어찌 데이터 요청을 한것인지 이걸 알 수 있음 .
+
+        차차 계속 하면서  , 또  관찰연구하면서 친숙해 질 것이다. 
+
+        그외 Security 등 다양하다 . 다루어 보자. 
+
+-->

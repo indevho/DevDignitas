@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            body{padding:0;margin:0;}
+            .div-general div{
+                background-color: yellow;
+                border: 1px solid gray;
+            }
+            .div-row{
+               display:flex;
+            }
+            .div-row div{
+                background-color: blue;
+                border: 1px solid black;
+            }
+            .div-column{
+               display:flex;
+               flex-direction: row-reverse;
+            }
+            .div-column div{
+                background-color: green;
+                border: 1px solid black;
+            }
+
+        </style>
+    </head>
+    <body>
+        <div class="div-general">
+            <div>A</div>
+            <div>B</div>
+            <div>C</div>
+            
+        </div>
+        <div class="div-row">
+            <div>A</div>
+            <div>B</div>
+            <div>C</div>
+            
+        </div>
+        <div class="div-column">
+            <div style="flex:33%">A</div>
+            <div style="flex:33%">B</div>
+            <div style="flex:33%">C</div>
+            
+        </div>
+    </body>
+</html>
+
+
+
+
+<!--  레이아웃 배치를 쉽게 하기 위한 CSS!
+
+flex 는 강력하다.  무려 block 요소를 inline 화 해버린다. 
+
+
+row - reverse  :  우에서 출발점을 잡고  차곡차곡 왼족으로 간다.
+column - reverse : 출발점을  아래서 잡고 위로 쌓아간다.
+
+ 배치 출발점 , 배치의 순서를 쉽게 컨트롤 하는 css 인 것이다! 
+
+
+ 폭이 좁아지면  flex direction 을   row  >>> column 으로 하면  톡 떨어진다. 
+
+
+실습  - 
+상 div 헤더 
+중 nav . navbar 네비게이션 
+중하  div .row
+  aside 태그 있음, main 있음 .
+  flex 30 % ,  flex 70 %  roww 상태에서 3: 7로 땅따먹기 하겠다는 뜻! 
+하   div. footer   
+
+모바일에서는 nav 랑 row 를 flex column 으로 툭css 얹어주면. 
+모바일에서 쓰기 좋게 깔끔히 떨어지게 된다. 
+
+
+사용자 UX 를 기준으로  
+반응형웹의 요소를 display none 처리 하기도 한다. 
+
+굳이 안보여줘도 되는걸 보여주고 싶다면 pc 에서 하고 ,
+모바일에서는 보여줄 내용만 알차게 보여주어라. 그것이 사용자 경험을 향상 시킨다. 
+
+모바일에서는 글씨싸이즈가 너무 작거나 클 수가 있다. 
+반응 형 웹 할 때 주의할 것은 font Size 이다. 
+
+좌우 스크롤의 여지를 나서서 유저에게 노출시키지 말자 ( ex 사진 )
+
+컨텐츠 배치 시  display flex 사용하라. 
+보안상 모바일에서 띄워선 안되는 것은 차단한다. 
+
+06. html >>  여기로 이동  똑 떨어지는거 말고 
+스무스하게 슈우욱 넘어가도록 하는 것. 
+
+메뉴 5클릭시 >> scroll behavior : smooth  
+>> css 로 이게 가능하다;; 
+
+position > sticky >> 메뉴부분 걸려있죠? nav 가 .
+nav 보시면  top 0 position sticky 되어있어요 .
+
+justify-content :center 
+>>  이거도 강력하네요 . 가운데로 모이는데  ( flex 랑 함께 믹스되어서  일하는 녀석이라는 것을 기억! )
+
+https://salgum1114.github.io/css/2019-04-28-scroll-behavior-smooth/
+
+-->

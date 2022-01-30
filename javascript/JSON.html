@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        padding: 0;
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      var arr = [1, 2, 3, 4, 5];
+      var arr1 = new Array();
+      arr1.push(1);
+      arr1.push(2);
+      arr1.push(3);
+      json1 = JSON.stringify(arr1);
+      console.log(json1);
+      console.log(typeof json1);
+      console.log(JSON.parse(json1));
+      console.log(typeof JSON.parse(json1));
+    </script>
+  </body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        padding: 0;
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <input type="date" id="datedd" />
+    <button onclick="showTime()">시간조회</button>
+    <script>
+      //Array 객체
+      let brands = ["애플", "구글", "삼성", "화웨이", "카카오", "아마존"];
+      console.log(brands.toString());
+
+      //join
+      console.log(brands.join("  *  "));
+      console.log("=================");
+      console.log(brands + "  shift 친다 ");
+      console.log(brands.shift() + " 나오고 ");
+      console.log(brands);
+      console.log("=================");
+      console.log(brands + "  pop 친다 ");
+      console.log(brands.pop() + " 나오고 ");
+      console.log(brands);
+      console.log("=================");
+      console.log(brands + "  unshift 친다 ");
+      console.log(typeof brands.push("삼성뒤"));
+      console.log(brands.unshift("삼성앞") + " 들어간다 ");
+      console.log(brands);
+      console.log(undefined === true);
+
+      //splice - 배열의 특정위치에 내가 원하는 것을 넣고 싶다!!
+      brands.splice(1, 0, "리턴", "더그레잇");
+      console.log(brands);
+      let arr = ["글자", 123];
+      console.log(arr); //결과 :['글자', 123]
+      arr.sort();
+      console.log(arr); //결과 : [123, '글자']
+
+      function showTime() {
+        console.log(document.getElementById("datedd").value);
+        alert(document.getElementById("datedd").value);
+        alert(typeof document.getElementById("datedd").value);
+      }
+    </script>
+  </body>
+</html>

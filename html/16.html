@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+/* 인터널 스타일!  */
+            #header{
+                border:2px solid red;
+
+            }
+            .nav{
+                border: 2px solid blue;
+
+            }
+            .nav > ul{
+                list-style: none;
+                padding-left:0px;
+            }
+            .nav> ul  >li {
+                width: 20%;
+                height:25px;
+                float: left;
+                text-align: center;
+            }
+
+
+            #main{
+                border: 2px dashed green;
+            }
+            .section{
+                border: 1px solid red;
+
+            }
+            #footer{
+                border: 2px solid black;
+                height: 55px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="header"> 헤더영역</div>
+        <div class="nav">
+            <ul>
+                <li>num1	</li>
+                <li>num2	</li>
+                <li>num3	</li>
+                <li>num4	</li>
+            </ul>
+
+
+        </div>
+        <div id="main">
+            <div class="section"> Section영역</div>
+            <div class="section"> Section영역</div>
+            <div class="section"> Section영역</div>
+            <div class="section"> Section영역</div>
+        </div>
+        <div id="footer">
+
+        </div>
+
+    </body>
+</html>

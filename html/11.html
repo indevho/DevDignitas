@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <form action="" id="">
+            <input type="button" value="저장" id="buttonForSubmit">
+
+        <br>
+        <input type="checkbox" name="chk_html" id="chk_html"><label for="chk_html">HTML</label>
+        <input type="checkbox" name="chk_css" id="chk_css"><label for="chk_css">CSS</label>
+<!--checkbox 와 label 은   input checkbox 의 id 그리고 label 의 for 가 매칭될때 동작!   -->
+        
+<br>
+        <label ><input type="checkbox" >HTML</label>
+        <label ><input type="checkbox" >CSS</label>
+        <!-- 위에 보다는 효율적인 방법 같기는 하다. 그러나 검색엔진 입장에선 위의코드가 
+        더 낫다!!  -->
+        <br>
+        <!-- 여러 아이템 있을때 옵션.  선택을 한가지로 강제 4지선다형중 하나-->
+        <label for="html_rdo">HTML</label>
+        <input type="radio" name="pl" id="html_rdo" value="1" >
+        <label for="css_rdo">CSS</label>
+        <input type="radio" name="pl" id="css_rdo" value="2" >
+        <!-- 따로있으면 그룹핑이안되고, name이 공백이어도 그룹핑이안된다. -->
+        <br>
+        <input type="color" name="" id="">
+        <br>
+        <input type="datetime-local" name="" id="">
+        <br>
+        <input type="date" name="" id="">
+        <br>
+        <input type="email" name="" placeholder="inputEmail" id="">
+        <br>
+        <img src="/inputEmail.jpg" width="200px" alt="">
+        <br>
+        <input type="text" name="" id="" placeholder="inputText" require>
+        <!-- 외견상 아무런 타입이 없는 type texdt, type email.. 
+        form 을 이용해서 text, email 의 차이를 증명할 수 있다! 
+        react, vue 쓰면 form 쓸 일이 거의없다.  -->
+        <!-- required > 속성은  -->
+        <br>
+        
+        <br>
+        <input type="password" name="" id="">
+        <br>
+        <input type="range" min="1"  max="100" name="" id="range">
+        <br>
+        <input type="hidden" name="userid" value="abc1234">
+        <br>
+        <input type="tel" name="" id=""  pattern="\d{3}-\d{3}-\d{3}">
+        <!-- 010 을 원한다면   pattern= "010-\d{4}-\d{3} " -->
+        <!-- 정규식을 써서 pattern 직접 줄 수 있음!!  -->
+        <input type="url" name="" id="">
+        <!-- form 안에서 readonly -변경 안됨.
+        disabled - 변경 안됨. 그러나 전송까지 안됨.  -->
+
+
+        
+        <br>
+        <!-- 로그인 화면에서의 오토포커스 속성 - 사용자 편의를 위해서 사용한다. -->
+
+        <input type="submit" value="저장">
+    
+    </form>
+
+    </body>
+    <script>
+        const submitBtn =document.getElementById('buttonForSubmit');
+        
+
+        const rdo = document.querySelector('input');
+        rdo.onchange = radioo;
+        function radioo(e){
+            alert("라디오")
+        }
+        const range = document.getElementById('range');
+        range.onchange = range22;
+        function range22(e){
+            alert(Number(this.value))
+        }
+
+        rdo.addEventListener('onchange', event => {
+         alert("라디오")
+        });
+
+    </script>
+</html>
