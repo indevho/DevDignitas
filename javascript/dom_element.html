@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <label for="userId" name="userId">사용자ID</label>
+    <input type="text" name="" id="userId" class="form-input" value="1"
+    onKeypress="javascript:if(event.keyCode==13){moveToPass()}"
+    >
+    <br>
+    <label for="userPass" >비밀번호</label>
+    <input type="text" name="" id="userPass"  onKeypress="javascript:if(event.keyCode==13){login()}">
+    <br>
+    <button onclick="login();" >로그인</button>
+    <br>
+    <button onclick="showChecked();" >체크항목</button>
+    <br>
+    <input type="checkbox" id="pl1" name="chk_pl" value="0">
+    <label for="pl1">HTML</label>
+    <input type="checkbox" id="pl2" name="chk_pl" value="1">
+    <label for="pl2">CSS</label>
+    <input type="checkbox" id="pl3" name="chk_pl" value="2">
+    <label for="pl3">JS</label>
+    
+</body>
+    <script>
+        console.log('DOM HANDLING');
+        /*
+        HTML 아래로 있는 것이 DOM이다.  DOM 속에 여러 태그가 존재하고 , 트리구조로 태그 옆에 태그, 태그 속에 태그 ... 존재하는 중. 
+        DOM트리에 우리가 쓴 태그들이 등록이 되어 브라우저에 가시화된다. 
+
+        */
+       function login(){
+           let userIdElement = document.getElementById("userId");
+           let userPassElement = document.getElementById("userPass");
+            userPassElement.blur();
+           //console.log(userIdElement.value) //  엘리먼트 속 value - 나온다.
+           //console.log(userIdElement.innerHTML)// 빵꾸
+          // console.log(userIdElement.innerText)// 빵꾸
+          console.log(document.querySelector("#userId").value);
+
+
+          console.log(document.querySelector("#userId").getAttribute("value"));
+          console.log(document.querySelector("#userId").defaultValue)
+       }
+
+       //태그이름으로 엘리먼트"들" 가져오기 HTML 콜렉션은 배열이다. 
+       let labelElements = document.getElementsByTagName("label");
+       console.log('라벨은 htmlCOllection :'+ labelElements);
+       console.log(labelElements.defaultValue);
+       
+       // name을 이용해 e"들" 가져오기 
+       let nameElements = document.getElementsByName("");
+       console.log(nameElements);
+       
+       //checkbox 활용하기 
+
+       function showChecked(){
+           let chks = document.getElementsByName('chk_pl');
+           let checkedValue= [];
+           for (const chk of chks) {
+               if(chk.checked){
+                checkedValue.push(chk.value);
+               }
+           }
+           console.log(checkedValue);          
+
+       }
+       function moveToPass(){
+            document.getElementById("userPass").focus();
+       }
+       //ID로 가져오기 
+       //console.log('ID로 가져오기 ');       
+       console.log(document.querySelector("#userId").value);//단일개의 element 가져오기
+       
+
+       //getAttribute 
+
+    </script>
+</html>

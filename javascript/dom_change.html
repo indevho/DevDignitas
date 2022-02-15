@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <select name=""  onchange="selectCity2(this);">
+        <option value="">==선택하기==</option>
+        <option value="02">Seoul</option>
+        <option value="051">Busan</option>
+        <option value="064">Jeju</option>
+
+    </select>
+    <br>
+    <select name="" id="si" disabled>
+        <option value="02">제주군</option>
+        <option value="064">서귀포군</option>
+
+    </select>
+</body>
+
+    <script>
+
+        const cities = [
+            {city:"064", cityName:"제주도", siName:"제주시"},
+            {city:"064", cityName:"제주도", siName:"제주시"},
+            {city:"02", cityName:"서울", siName:"강남구"},                                                                                                                                              
+            {city:"02", cityName:"서울", siName:"동대문구"},
+
+        ]
+
+        function selectCity2(e){
+
+            let picked  = e.value;
+            //console.log(ss)
+            //console.log(cities.length)
+            //let selected =   e.value ? "" : cities.filter( c => c.city ===ss);
+            
+            if(picked !== ""){
+                let selected = cities.filter( c => c.city ===picked);
+                console.log(selected);
+            }
+        }
+
+
+
+        function selectCity(e){
+           let city = e.value;
+            
+
+            if(city == "064"){
+                let options = [];
+                let cities = [{code:1, name:"제주시"}, {code:2,name:"서귀포시"}];
+                cities.forEach(city => {
+                    options.push(`<option value="${city.code}">${city.name}</option>`);
+
+                });
+                document.querySelector("#si").innerHTML = options.join("");
+                document.querySelector("#si").disabled= false;
+                
+
+            }else{
+                document.querySelector("#si").innerHTML = "";
+                document.querySelector("#si").disabled= true;
+            }
+        };
+
+        
+
+    </script>
+</html>
