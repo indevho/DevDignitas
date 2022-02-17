@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<style>
+  </head>
+  <style>
     .normal-table {
       border: 1px solid black;
       border-collapse: collapse;
@@ -38,208 +38,192 @@
     }
   </style>
 
-<body>
-  <span>성별</span>
-  <select name="" id="gender">
-    <!--  data필터를 어느 시점에 할까? -->
-    <option value="">전체</option>
-    <option value="male">남자</option>
-    <option value="female">여자</option>
-  </select>
-  <span> </span>
-  <br>
-  <select name="" id="schType">
-    <!--  data필터를 어느 시점에 할까? -->
-    <option value="">전체</option>
-    <option value="name">이름</option>
-    <option value="company">회사</option>
-    <option value="gender">성별</option>
-    <option value="email">이메일</option>
-    <option value="phone">전화번호</option>
-    <option value="address">주소</option>
-  </select>
- 
-  <input type="text" id="schKeyWord">
+  <body>
+    <span>성별</span>
+    <select name="" id="gender">
+      <!--  data필터를 어느 시점에 할까? -->
+      <option value="">전체</option>
+      <option value="male">남자</option>
+      <option value="female">여자</option>
+    </select>
+    <span> </span>
+    <br />
+    <select name="" id="schType">
+      <!--  data필터를 어느 시점에 할까? -->
+      <option value="">전체</option>
+      <option value="name">이름</option>
+      <option value="company">회사</option>
+      <option value="gender">성별</option>
+      <option value="email">이메일</option>
+      <option value="phone">전화번호</option>
+      <option value="address">주소</option>
+    </select>
+
+    <input type="text" id="schKeyWord" />
     <button onclick="doSearch()" id="findBtn">조회</button>
     <button onclick="goToCreate()" id="createBtn">생성화면</button>
-    
+
     <button onclick="doDelete()" id="deleteBtn" disabled>삭제</button>
     <table class="normal-table striped">
-        <thead>
-            <tr>
-                <th><input type="checkbox" id="checkAll" onchange="checkAll()"></th>
-                <th>Name</th>
-                <th>Company</th>
-                <th>Gender</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th>Address</th>
-            </tr>
-        </thead>
-        <tbody id="tbBody"></tbody>
+      <thead>
+        <tr>
+          <th><input type="checkbox" id="checkAll" onchange="checkAll()" /></th>
+          <th>Name</th>
+          <th>Company</th>
+          <th>Gender</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Address</th>
+        </tr>
+      </thead>
+      <tbody id="tbBody"></tbody>
     </table>
-
-</body>
-    <script>
-        
-
-
-        async function doDelete(){
-          const chks = document.querySelectorAll("[name=chk]:checked");
-          const delTarget = [];   
-          if(chks.length<1){
-            alert("체크하세요");
-            return;
-          }       
-          if(chks.length>0 & confirm("체크된 거 삭제 할까요?")){
-            console.log(chks.length);
-            for (const chk of chks) {
-              await fetch(`http://localhost:3000/customers/${chk.value}`,
-              {method:"DELETE"});                                                 
-              delTarget.push(`${chk.value}`)
-            }
-
-            alert("삭제된 데이터"+ delTarget)
-            doSearch();
-            
-          }
-        }
-        /*  {method:"DELTE"} 하는 경우. 일부러 DELTE
-        Access to fetch at 'http://localhost:3000/customers/620b7ee61db1dc4c0c00a051' from origin 'http://127.0.0.1:5500' has been blocked by CORS policy: Method DELTE is not allowed by Access-Control-Allow-Methods in preflight response.
-      dom.html:127          DELTE http://localhost:3000/customers/620b7ee61db1dc4c0c00a051 net::ERR_FAILED
-      doDelete @ dom.html:127
-      onclick @ dom.html:65
-      dom.html:127                  Uncaught (in promise) TypeError: Failed to fetch
-          at doDelete (dom.html:127:21)
-          at HTMLButtonElement.onclick (dom.html:65:49)
-        */
-
-        //link 
-        var input = document.getElementById("schKeyWord");
-        // Execute a function when the user releases a key on the keyboard
-        input.addEventListener("keyup", function(e) {
-          console.log(e)
-          console.log(e.keyCode)
-        // Number 13 is the "Enter" key on the keyboard
-        if (e.keyCode === 13) {
-          // Cancel the default action, if needed
-          e.preventDefault();
-          // Trigger the button element with a click
-          document.getElementById("findBtn").click();
-        }
-        
-
-        var ctrlDown = false;
-         var ctrlKey = 17, vKey = 86, cKey = 67; 
-         document.keydown(function(e) { 
-           if (e.keyCode == ctrlKey) ctrlDown = true; 
-                      
-           }).keyup(function(e) {
-
-            if (e.keyCode == ctrlKey) ctrlDown = false; 
-            
-            });
-
-
-
-
-        async function doSearch(){
-          const gender = document.querySelector("#gender").value;
-          const schType= document.querySelector("#schType").value;
-          const schKeyWord= document.querySelector("#schKeyWord").value;
-          
-          let resource = "http://localhost:3000/customers";
-          if(gender === ""){
-              if(schKeyWord !==""){
-                resource = `http://localhost:3000/customers?${schType}_like=${schKeyWord}`;
-                console.log(resource)
-              }
-            }
-
-
-            
-            if(gender !== ""){
-              resource = `http://localhost:3000/customers?gender=${gender}`;
-            }
-           
-            const res= await fetch(resource);
-            const resJson = await res.json();
-            console.log(resJson);
-            renderTable(resJson);
-
+  </body>
+  <script>
+    async function doDelete() {
+      const chks = document.querySelectorAll("[name=chk]:checked");
+      const delTarget = [];
+      if (chks.length < 1) {
+        alert("체크하세요");
+        return;
+      }
+      if ((chks.length > 0) & confirm("체크된 거 삭제 할까요?")) {
+        console.log(chks.length);
+        for (const chk of chks) {
+          await fetch(`http://localhost:3000/customers/${chk.value}`, {
+            method: "DELETE",
+          });
+          delTarget.push(`${chk.value}`);
         }
 
-        function renderTable(data){
-          //체크박스 로직 추가 .
-          //const checkbox = ;
-          const h = [];
-          //이 data필터를 어느 시점에 할까?
-          for (const item of data){
-            h.push("<tr>");
-            h.push(`<td><input type="checkbox"  name="chk" value="${item.id}" onchange="activateDel();"> </td>`);
-            h.push(`<td>${item.name} </td>`)
-            h.push(`<td>${item.company} </td>`)
-            h.push(`<td>${item.gender} </td>`)
-            h.push(`<td>${item.email} </td>`)
-            h.push(`<td>${item.phone} </td>`)
-            h.push(`<td>${item.address} </td>`)
+        alert("삭제된 데이터" + delTarget);
+        doSearch();
+      }
+    }
+    /*  {method:"DELTE"} 하는 경우. 일부러 DELTE
+      Access to fetch at 'http://localhost:3000/customers/620b7ee61db1dc4c0c00a051' from origin 'http://127.0.0.1:5500' has been blocked by CORS policy: Method DELTE is not allowed by Access-Control-Allow-Methods in preflight response.
+    dom.html:127          DELTE http://localhost:3000/customers/620b7ee61db1dc4c0c00a051 net::ERR_FAILED
+    doDelete @ dom.html:127
+    onclick @ dom.html:65
+    dom.html:127                  Uncaught (in promise) TypeError: Failed to fetch
+        at doDelete (dom.html:127:21)
+        at HTMLButtonElement.onclick (dom.html:65:49)
+      */
 
-            h.push("</tr>");
-          }
+    //link
+    var input = document.getElementById("schKeyWord");
+    // Execute a function when the user releases a key on the keyboard
+    input.addEventListener("keyup", function (e) {
+      console.log(e);
+      console.log(e.keyCode);
+      // Number 13 is the "Enter" key on the keyboard
+      if (e.keyCode === 13) {
+        // Cancel the default action, if needed
+        e.preventDefault();
+        // Trigger the button element with a click
+        document.getElementById("findBtn").click();
+      }
+    });
 
-          // data.forEach(element => {
-          //   h.push("<tr>");
-          //   h.push(`<td>${element.name} </td>`)
-          //   h.push(`<td>${element.company} </td>`)
-          //   h.push(`<td>${element.gender} </td>`)
-          //   h.push(`<td>${element.email} </td>`)
-          //   h.push(`<td>${element.phone} </td>`)
-          //   h.push(`<td>${element.address} </td>`)
-          //   h.push("</tr>");
-          // });
-          
-          document.querySelector("#tbBody").innerHTML = h.join("");
+    //   var ctrlDown = false;
+    //  var ctrlKey = 17, vKey = 86, cKey = 67;
+    //  document.keydown(function(e) {
+    //    if (e.keyCode == ctrlKey) ctrlDown = true;
 
+    //    }).keyup(function(e) {
+
+    //     if (e.keyCode == ctrlKey) ctrlDown = false;
+    //    }
+
+    async function doSearch() {
+      const gender = document.querySelector("#gender").value;
+      const schType = document.querySelector("#schType").value;
+      const schKeyWord = document.querySelector("#schKeyWord").value;
+
+      let resource = "http://localhost:3000/customers";
+      if (gender === "") {
+        if (schKeyWord !== "") {
+          resource = `http://localhost:3000/customers?${schType}_like=${schKeyWord}`;
+          console.log(resource);
         }
+      }
 
+      if (gender !== "") {
+        resource = `http://localhost:3000/customers?gender=${gender}`;
+      }
 
-        //onCLick이 아닌 onChange가 정확하다. 
-         function checkAll(){
-          // <th><input type="checkbox" id="checkAll"></th>
-          let checkValue = document.querySelector("#checkAll").checked;
-          const chks = document.querySelectorAll("[name=chk]");
-          for (const c of chks) {
-            c.checked= checkValue;
-          }
+      const res = await fetch(resource);
+      const resJson = await res.json();
+      console.log(resJson);
+      renderTable(resJson);
+    }
 
-        }
+    function renderTable(data) {
+      //체크박스 로직 추가 .
+      //const checkbox = ;
+      const h = [];
+      //이 data필터를 어느 시점에 할까?
+      for (const item of data) {
+        h.push("<tr>");
+        h.push(
+          `<td><input type="checkbox"  name="chk" value="${item.id}" onchange="activateDel();"> </td>`
+        );
+        h.push(`<td>${item.name} </td>`);
+        h.push(`<td>${item.company} </td>`);
+        h.push(`<td>${item.gender} </td>`);
+        h.push(`<td>${item.email} </td>`);
+        h.push(`<td>${item.phone} </td>`);
+        h.push(`<td>${item.address} </td>`);
 
-        function activateDel(){
-          const chks = document.querySelectorAll("[name=chk]:checked");
-          if (chks.length >0 ){
-            document.querySelector("#deleteBtn").disabled= false;
-          }else{
-            document.querySelector("#deleteBtn").disabled= true;
-          }
-        }
-        //<button onclick="goToCreate()" id="createBtn">생성</button>
-        function goToCreate(){
-          document.location.href= "dom_create.html";
-        }
+        h.push("</tr>");
+      }
 
-        function checkEnter(e, id){
-          if(e.keyCode === 13){
-            document.querySelector("#"+id).focus()
-          }
-        }
-        function checkEnterForPhone(e){
-          if(e.keyCode=== 13){
-            openDaumAPI();
-          }
-        }
+      // data.forEach(element => {
+      //   h.push("<tr>");
+      //   h.push(`<td>${element.name} </td>`)
+      //   h.push(`<td>${element.company} </td>`)
+      //   h.push(`<td>${element.gender} </td>`)
+      //   h.push(`<td>${element.email} </td>`)
+      //   h.push(`<td>${element.phone} </td>`)
+      //   h.push(`<td>${element.address} </td>`)
+      //   h.push("</tr>");
+      // });
 
+      document.querySelector("#tbBody").innerHTML = h.join("");
+    }
 
+    //onCLick이 아닌 onChange가 정확하다.
+    function checkAll() {
+      // <th><input type="checkbox" id="checkAll"></th>
+      let checkValue = document.querySelector("#checkAll").checked;
+      const chks = document.querySelectorAll("[name=chk]");
+      for (const c of chks) {
+        c.checked = checkValue;
+      }
+    }
 
+    function activateDel() {
+      const chks = document.querySelectorAll("[name=chk]:checked");
+      if (chks.length > 0) {
+        document.querySelector("#deleteBtn").disabled = false;
+      } else {
+        document.querySelector("#deleteBtn").disabled = true;
+      }
+    }
+    //<button onclick="goToCreate()" id="createBtn">생성</button>
+    function goToCreate() {
+      document.location.href = "dom_create.html";
+    }
 
-    </script>
+    function checkEnter(e, id) {
+      if (e.keyCode === 13) {
+        document.querySelector("#" + id).focus();
+      }
+    }
+    function checkEnterForPhone(e) {
+      if (e.keyCode === 13) {
+        openDaumAPI();
+      }
+    }
+  </script>
 </html>
