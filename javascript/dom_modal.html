@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .normal-table {
+        border: 1px solid black;
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      .normal-table th,
+      .normal-table td {
+        border: 1px solid black;
+        padding: 5px 10px;
+      }
+
+      .normal-table thead tr {
+        background-color: yellow;
+      }
+      /* even 혹은 2n 짝수 odd 혹은 2n+1 홀수 */
+      /* .normal-table tbody tr:nth-child(odd) {
+      background-color: grey;
+    } */
+
+      /* even 혹은 2n 짝수 odd 혹은 2n+1 홀수 */
+      .striped tbody tr:nth-child(odd) {
+        background-color: grey;
+      }
+
+      .hover tbody tr:hover {
+        background-color: yellow;
+      }
+    </style>
+    <link rel="stylesheet" href="css/modal.css" />
+  </head>
+
+  <body>
+    <span>성별</span>
+    <select name="" id="gender">
+      <!--  data필터를 어느 시점에 할까? -->
+      <option value="">전체</option>
+      <option value="male">남자</option>
+      <option value="female">여자</option>
+    </select>
+    <span> </span>
+    <br />
+    <select name="" id="schType">
+      <!--  data필터를 어느 시점에 할까? -->
+      <option value="">전체</option>
+      <option value="name">이름</option>
+      <option value="company">회사</option>
+      <option value="gender">성별</option>
+      <option value="email">이메일</option>
+      <option value="phone">전화번호</option>
+      <option value="address">주소</option>
+    </select>
+
+    <input type="text" id="schKeyWord" />
+    <button onclick="doSearch()" id="findBtn">조회</button>
+    <button onclick="goToCreate()" id="createBtn">생성화면</button>
+
+    <button onclick="doDelete()" id="deleteBtn" disabled>삭제</button>
+    <table class="normal-table striped">
+      <thead>
+        <tr>
+          <th><input type="checkbox" id="checkAll" onchange="checkAll()" /></th>
+          <th>Name</th>
+          <th>Company</th>
+          <th>Gender</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Address</th>
+        </tr>
+      </thead>
+      <tbody id="tbBody"></tbody>
+    </table>
+    <div class="modal-mask">
+      <div class="modal-wrapper">
+        <div class="modal-container" style="width: 600px">
+          <div class="modal-header">
+            <h3>고객정보 수정</h3>
+          </div>
+          <div class="modal-body">
+            <div class="col-4">
+              <label for="name">Name</label>
+            </div>
+            <div class="col-8">
+              <input type="text" name="" id="name" class="form-control" />
+              <input type="hidden" id="selectedId" />
+            </div>
+
+            <div class="col-4">
+              <label for="gender">Gender</label>
+            </div>
+            <div class="col-8">
+              <input
+                type="radio"
+                name="gender"
+                value="male"
+                id="male"
+                checked
+              />
+              <label for="male">남</label>
+              <input type="radio" name="gender" value="female" id="female" />
+              <label for="female">여</label>
+            </div>
+
+            <div class="col-4">
+              <label for="company">Company</label>
+            </div>
+            <div class="col-8">
+              <input type="text" name="" id="company" class="form-control" />
+            </div>
+
+            <div class="col-4">
+              <label for="email">Email</label>
+            </div>
+            <div class="col-8">
+              <input
+                type="text"
+                name=""
+                id="email"
+                class="form-control"
+                onblur="checkEmail()"
+              />
+            </div>
+            <div id="emailMsg" style="display: none">
+              "올바른 Email 형식 입력하세요 "
+            </div>
+
+            <div id="phoneMsg" style="display: none">
+              "전화번호 형식이 틀렸습니다. "
+            </div>
+
+            <div class="col-4">
+              <label for="address">Address</label> &nbsp&nbsp&nbsp<button
+                onclick="openDaumAPI()"
+              >
+                주소찾기
+              </button>
+            </div>
+
+            <div class="col-8">
+              <input type="text" name="" id="address" class="form-control" />
+              <input type="text" name="" id="zoneCode" readonly />
+              <input type="text" name="" id="sigungu" readonly />
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button onclick="doSave()">저장</button>
+            <button onclick="closeModal()">닫기</button>
+          </div>
+        </div>
+        <!-- wrapper -->
+      </div>
+      <!-- mask -->
+    </div>
+  </body>
+
+  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+  <script>
+    let selectedId = "";
+
+    function openModal(id) {
+      selectedId = id;
+      console.log(`modal+${id}`);
+      document.querySelector(".modal-mask").className = "modal-mask modal-show";
+      let customer = customerData.filter((c) => c.id === id)[0];
+      document.querySelector("#selectedId").value = id;
+      document.querySelector("#name").value = customer.name;
+      document.querySelector("#company").value = customer.company;
+      document.querySelector("#" + customer.gender).checked = true;
+      document.querySelector("#email").value = customer.email;
+      //document.querySelector("#phone").value = customer.phone;
+      document.querySelector("#address").value = customer.address;
+    }
+
+    function closeModal() {
+      document.querySelector(".modal-mask").className = "modal-mask ";
+    }
+
+    async function doDelete() {
+      const chks = document.querySelectorAll("[name=chk]:checked");
+      const delTarget = [];
+      if (chks.length < 1) {
+        alert("체크하세요");
+        return;
+      }
+      if ((chks.length > 0) & confirm("체크된 거 삭제 할까요?")) {
+        console.log(chks.length);
+        for (const chk of chks) {
+          await fetch(`http://localhost:3000/customers/${chk.value}`, {
+            method: "DELETE",
+          });
+          delTarget.push(`${chk.value}`);
+        }
+
+        alert("삭제된 데이터" + delTarget);
+        doSearch();
+      }
+    }
+    /*  {method:"DELTE"} 하는 경우. 일부러 DELTE
+      Access to fetch at 'http://localhost:3000/customers/620b7ee61db1dc4c0c00a051' from origin 'http://127.0.0.1:5500' has been blocked by CORS policy: Method DELTE is not allowed by Access-Control-Allow-Methods in preflight response.
+    dom.html:127          DELTE http://localhost:3000/customers/620b7ee61db1dc4c0c00a051 net::ERR_FAILED
+    doDelete @ dom.html:127
+    onclick @ dom.html:65
+    dom.html:127                  Uncaught (in promise) TypeError: Failed to fetch
+        at doDelete (dom.html:127:21)
+        at HTMLButtonElement.onclick (dom.html:65:49)
+      */
+
+    //link
+    var input = document.getElementById("schKeyWord");
+    // Execute a function when the user releases a key on the keyboard
+    input.addEventListener("keyup", function (e) {
+      console.log(e);
+      console.log(e.keyCode);
+      // Number 13 is the "Enter" key on the keyboard
+      if (e.keyCode === 13) {
+        // Cancel the default action, if needed
+        e.preventDefault();
+        // Trigger the button element with a click
+        document.getElementById("findBtn").click();
+      }
+    });
+
+    //   var ctrlDown = false;
+    //  var ctrlKey = 17, vKey = 86, cKey = 67;
+    //  document.keydown(function(e) {
+    //    if (e.keyCode == ctrlKey) ctrlDown = true;
+
+    //    }).keyup(function(e) {
+
+    //     if (e.keyCode == ctrlKey) ctrlDown = false;
+    //    }
+
+    async function doSearch() {
+      const gender = document.querySelector("#gender").value;
+      const schType = document.querySelector("#schType").value;
+      const schKeyWord = document.querySelector("#schKeyWord").value;
+
+      let resource = "http://localhost:3000/customers";
+      if (gender === "") {
+        if (schKeyWord !== "") {
+          resource = `http://localhost:3000/customers?${schType}_like=${schKeyWord}`;
+          console.log(resource);
+        }
+      }
+
+      if (gender !== "") {
+        resource = `http://localhost:3000/customers?gender=${gender}`;
+      }
+
+      const res = await fetch(resource);
+      const resJson = await res.json();
+      console.log(resJson);
+      renderTable(resJson);
+    }
+
+    function renderTable(data) {
+      //체크박스 로직 추가 .
+      //const checkbox = ;
+      const h = [];
+      //이 data필터를 어느 시점에 할까?
+      for (const item of data) {
+        h.push("<tr>");
+        h.push(
+          `<td><input type="checkbox"  name="chk" value="${item.id}" onchange="activateDel();"> </td>`
+        );
+        h.push(`<td><a href="javascript:openModal('${item.name}') />" </td>`);
+        h.push(`<td>${item.company} </td>`);
+        h.push(`<td>${item.gender} </td>`);
+        h.push(`<td>${item.email} </td>`);
+        h.push(`<td>${item.phone} </td>`);
+        h.push(`<td>${item.address} </td>`);
+
+        h.push("</tr>");
+      }
+
+      // data.forEach(element => {
+      //   h.push("<tr>");
+      //   h.push(`<td>${element.name} </td>`)
+      //   h.push(`<td>${element.company} </td>`)
+      //   h.push(`<td>${element.gender} </td>`)
+      //   h.push(`<td>${element.email} </td>`)
+      //   h.push(`<td>${element.phone} </td>`)
+      //   h.push(`<td>${element.address} </td>`)
+      //   h.push("</tr>");
+      // });
+
+      document.querySelector("#tbBody").innerHTML = h.join("");
+    }
+
+    //onCLick이 아닌 onChange가 정확하다.
+    function checkAll() {
+      // <th><input type="checkbox" id="checkAll"></th>
+      let checkValue = document.querySelector("#checkAll").checked;
+      const chks = document.querySelectorAll("[name=chk]");
+      for (const c of chks) {
+        c.checked = checkValue;
+      }
+    }
+
+    function isChecked(e) {
+      const chks = document.querySelectorAll("[name=chk]:checked");
+      if (chks.length > 0) {
+        document.querySelector("#deleteBtn").disabled = false;
+      } else {
+        document.querySelector("#deleteBtn").disabled = true;
+      }
+      console.log(chks);
+    }
+    //<button onclick="goToCreate()" id="createBtn">생성</button>
+    function goToCreate() {
+      //document.location.href = "dom_create.html";
+    }
+
+    function checkEnter(e, id) {
+      if (e.keyCode === 13) {
+        document.querySelector("#" + id).focus();
+      }
+    }
+    function checkEnterForPhone(e) {
+      if (e.keyCode === 13) {
+        openDaumAPI();
+      }
+    }
+
+    let customerData = [];
+
+    function renderTable(data) {
+      customerData = data; // 조회 될 때마다 수행.
+      const h = [];
+      for (const item of data) {
+        h.push("<tr>");
+        h.push(
+          `<td><input type="checkbox" value="${item.id}" name="chk" onchange="isChecked();" /></td>`
+        );
+        h.push(
+          `<td><a href="javascript:openModal('${item.id}');">${item.name}</a></td>`
+        );
+        h.push(`<td>${item.company}</td>`);
+        h.push(`<td>${item.gender}</td>`);
+        h.push(`<td>${item.email}</td>`);
+        h.push(`<td>${item.phone}</td>`);
+        h.push(`<td>${item.address}</td>`);
+        h.push("</tr>");
+      }
+
+      document.querySelector("#tbBody").innerHTML = h.join("");
+    }
+
+    async function doSave() {
+      const name = document.querySelector("#name").value.trim();
+      const gender = document
+        .querySelector("[name=gender]:checked")
+        .value.trim(); // 무조건 하나는 가져옴.. ㄷ 논리보소.
+      const company = document.querySelector("#company").value.trim();
+      const email = document.querySelector("#email").value.trim();
+      const address = document.querySelector("#address").value.trim();
+
+      console.log();
+
+      if (name === "") {
+        return alert("name 을(를) 입력하세요");
+      }
+
+      const regexpEmail = /^([a-z]+\d*)+(\.?[a-z]+)+@[a-z]+(\.[a-z]{2,3})+$/;
+      if (!regexpEmail.test(email)) {
+        //return
+        alert("올바른 Email 형식 입력하세요 ");
+      }
+
+      // const regexpPhone = /^\d{3}-\d{3,4}-\d{4}$/;
+      // if(!regexpPhone.test(phone)){
+      //   //return
+      //   alert(
+      //     "올바른 전화번호 형식 입력하세요 "
+      //   );
+      //   //return alert(); //한줄이냐 아니냐가 다르네.
+      // }
+
+      if (confirm("정말 저장하시겠습니까?")) {
+        const res = await fetch(
+          `http://localhost:3000/customers/${selectedId}`,
+          {
+            method: "PUT",
+            body: JSON.stringify({
+              //name: name, //key val 같으면생략 가능하다. 알아서 처리를 해준다.
+              name,
+              gender: gender,
+              company: company,
+              email: email,
+              //phone: phone,
+              address: address,
+            }),
+            headers: {
+              "content-type": "application/json;charset=UTF-8",
+            },
+          }
+        );
+        if (res.status === 200) {
+          // 수정이니까 정상응답 201 이 아니라 200!
+          closeModal();
+          alert("정상 생성됨");
+        } else {
+          alser("error!" + res.statusText);
+        }
+
+        //  .then((response) => response.json())
+        // .then((json) => console.log(json));
+      }
+    }
+
+    //<button onclick="goToCreate()" id="createBtn">생성</button>
+    function goBack() {
+      document.location.href = "dom.html";
+    }
+    function goToList() {
+      goBack();
+    }
+
+    function checkEmail() {
+      const email = document.querySelector("#email").value;
+
+      //const regexpEmail = /^([a-z]+\d*)+(\.?[a-z]+)+@[a-z]+(\.[a-z]{2,3})+$/;
+      //const regexpEmail = /^([a-z]+\d*)+(\.?[a-z]*)+@[a-z]+(\.[a-z]{2,3})+$/;
+      //멘토님 방식  -뒤에 숫자 가능하도록 해결.
+      const regexpEmail =
+        /^(\.?[a-z0-9]*)+([a-z]+\d*)+(\.?[a-z]*)+@[a-z]+(\.[a-z]{2,3})+$/;
+      //맨앞 숫자가능하게  보완
+      if (!regexpEmail.test(email)) {
+        //return
+        document.querySelector("#emailMsg").style.display = "block";
+        alert("email 양식에 맞게 입력하세요");
+        // document.getElementById("email").         focus();
+      } else {
+        document.querySelector("#emailMsg").style.display = "none";
+      }
+    }
+
+    function checkPhone() {
+      const phone = document.querySelector("#phone").value;
+      const regexpPhone = /^\d{3}-\d{3,4}-\d{4}$/;
+      if (!regexpPhone.test(phone)) {
+        //return
+        document.querySelector("#phoneMsg").style.display = "block";
+        //alert("email 양식에 맞게 입력하세요")
+        // document.getElementById("email").         focus();
+      } else {
+        document.querySelector("#phoneMsg").style.display = "none";
+      }
+    }
+
+    function doReset() {
+      name = document.querySelector("#name").value = "";
+      gender = document.querySelector("[name=gender]:checked").value = ""; // 무조건 하나는 가져옴.. ㄷ 논리보소.
+      company = document.querySelector("#company").value = "";
+      email = document.querySelector("#email").value = "";
+      phone = document.querySelector("#phone").value = "";
+      address = document.querySelector("#address").value = "";
+    }
+
+    function openDaumAPI() {
+      new daum.Postcode({
+        oncomplete: function (data) {
+          // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
+          // 예제를 참고하여 다양한 활용법을 확인해 보세요.
+          console.log(data);
+          document.querySelector("#address").value = data.address;
+          document.querySelector("#zoneCode").value = data.bname;
+          document.querySelector("#sigungu").value = data.bname1;
+        },
+      }).open();
+    }
+  </script>
+</html>

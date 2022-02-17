@@ -63,94 +63,20 @@
       "favoriteFruit": "banana"
     },
     {
-      "id": "620b7ee6c66c2b0b3c85919b",
-      "index": 5,
-      "guid": "8a253af9-d49e-4bf3-96d0-1188d9f3c438",
-      "isActive": true,
-      "balance": "$3,310.68",
-      "picture": "http://placehold.it/32x32",
-      "age": 26,
-      "eyeColor": "brown",
       "name": "Katy Maldonado",
-      "gender": "female",
+      "gender": "male",
       "company": "KIGGLE",
       "email": "katymaldonado@kiggle.com",
-      "phone": "+1 (892) 406-2607",
       "address": "757 Merit Court, Castleton, Illinois, 2308",
-      "about": "Adipisicing aliqua voluptate do commodo consectetur aliqua velit mollit commodo. In enim ullamco occaecat laborum dolore do magna amet aliqua dolor. In fugiat duis do incididunt incididunt sit enim officia non labore veniam deserunt. Veniam eu irure aliqua est non consequat occaecat adipisicing amet eu incididunt ex. Mollit consectetur Lorem laboris consequat ea dolor Lorem nulla sit aute. Minim velit ut mollit qui deserunt duis Lorem proident voluptate.\r\n",
-      "registered": "2017-07-13T06:18:27 -09:00",
-      "latitude": -0.163831,
-      "longitude": -42.181731,
-      "tags": [
-        "reprehenderit",
-        "cupidatat",
-        "magna",
-        "minim",
-        "duis",
-        "duis",
-        "ut"
-      ],
-      "friends": [
-        {
-          "id": 0,
-          "name": "Dean Underwood"
-        },
-        {
-          "id": 1,
-          "name": "Rivera Wilson"
-        },
-        {
-          "id": 2,
-          "name": "Sandra Mathis"
-        }
-      ],
-      "greeting": "Hello, Katy Maldonado! You have 4 unread messages.",
-      "favoriteFruit": "apple"
+      "id": "620b7ee6c66c2b0b3c85919b"
     },
     {
-      "id": "620b7ee6e914a228b1f6fe31",
-      "index": 6,
-      "guid": "bf4ec1de-d706-4806-a9b6-68e3d49c945d",
-      "isActive": true,
-      "balance": "$3,545.22",
-      "picture": "http://placehold.it/32x32",
-      "age": 25,
-      "eyeColor": "blue",
       "name": "Candace Hurst",
-      "gender": "female",
+      "gender": "male",
       "company": "EXIAND",
       "email": "candacehurst@exiand.com",
-      "phone": "+1 (838) 440-3747",
       "address": "824 Cook Street, Cornucopia, Alaska, 2252",
-      "about": "Nostrud exercitation excepteur aute culpa est qui. Ut consectetur reprehenderit officia pariatur ex commodo cillum fugiat officia ullamco exercitation. Officia occaecat id amet magna officia eu dolor nulla amet ut. Fugiat eiusmod consequat anim voluptate. Eu tempor do anim excepteur reprehenderit veniam deserunt ullamco ut irure velit commodo excepteur ullamco. Nulla fugiat enim ullamco ex labore fugiat est magna consequat duis.\r\n",
-      "registered": "2017-04-20T03:36:13 -09:00",
-      "latitude": -47.335537,
-      "longitude": 175.653348,
-      "tags": [
-        "pariatur",
-        "occaecat",
-        "enim",
-        "laboris",
-        "quis",
-        "incididunt",
-        "Lorem"
-      ],
-      "friends": [
-        {
-          "id": 0,
-          "name": "Flynn Duke"
-        },
-        {
-          "id": 1,
-          "name": "Knapp Buckley"
-        },
-        {
-          "id": 2,
-          "name": "Clarice Nichols"
-        }
-      ],
-      "greeting": "Hello, Candace Hurst! You have 1 unread messages.",
-      "favoriteFruit": "strawberry"
+      "id": "620b7ee6e914a228b1f6fe31"
     },
     {
       "id": "620b7ee6ed21379bd61deda2",

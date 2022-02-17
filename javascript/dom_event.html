@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body onload="myFunction2()">
+    <button onclick="myFunction1();">클 릭 1</button>
+    <button id="btn2">클 릭 2</button>
+    <script>
+      function setEvent() {
+        // 버튼함수 어디서 저기서 .
+      }
+
+      function myFunction1() {
+        console.log("1");
+      }
+      function myFunction2() {
+        console.log("2");
+      }
+      function myFunction3() {
+        console.log("3");
+      }
+      function myFunction4() {
+        console.log("4");
+      }
+      //onload 다른방식
+      window.addEventListener("load", () => {
+        myFunction3();
+        document
+          .querySelector("#btn2")
+          .addEventListener("click", myFunction4());
+        // 화면의 요소에 세팅할 함수들을 다 적용한다.
+      });
+    </script>
+  </body>
+</html>
